@@ -40,6 +40,29 @@ body.large{font-size:1.18rem}body.large .option,body.large .btn,body.large .acce
 <section id="end" class="card end hidden"><div class="emoji">🏆</div><h2>Desafio concluído!</h2><p id="finalText"></p><div id="finalRanking"></div><div class="game-actions"><button class="btn btn-primary" onclick="restart()">🎮 JOGAR NOVAMENTE</button><button class="btn btn-secondary" onclick="goHome()">🏠 VOLTAR AO INÍCIO</button></div></section>
 <section id="rankingSection" class="card hidden"><h2>🏆 Ranking</h2><div id="rankingContent"></div><div class="game-actions"><button class="btn btn-secondary" onclick="goHome()">🏠 INÍCIO</button></div></section>
 </main></div>
+<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-database-compat.js"></script>
+<script>
+// CONFIGURAÇÃO DO FIREBASE: será preenchida depois com os dados do seu projeto.
+const firebaseConfig = {
+  apiKey: "AIzaSyByGn6RXT8t0vnBN_2lsK5IWIVCR8-B9FA",
+  authDomain: "conexao-que-faz-bem.firebaseapp.com",
+  databaseURL: "https://conexao-que-faz-bem-default-rtdb.firebaseio.com",
+  projectId: "conexao-que-faz-bem",
+  storageBucket: "conexao-que-faz-bem.firebasestorage.app",
+  messagingSenderId: "962915486858",
+  appId: "1:962915486858:web:7ce000ddfceec5a0857173",
+  measurementId: "G-83B0RG1M3R"
+};
+let firebaseReady=false, rankingRef=null;
+try {
+  if(firebaseConfig.apiKey !== "COLE_AQUI" && firebaseConfig.databaseURL !== "COLE_AQUI"){
+    firebase.initializeApp(firebaseConfig);
+    rankingRef=firebase.database().ref("ranking");
+    firebaseReady=true;
+  }
+} catch(e) { console.warn("Firebase ainda não configurado.",e); }
+</script>
 <script>
 (function(){
 'use strict';
@@ -71,8 +94,8 @@ window.font=function(n){document.body.classList.remove('large','xlarge');if(n===
 const savedFont=localStorage.getItem('fontSize');if(savedFont==='1')document.body.classList.add('large');const RANKING_RESET_KEY='conexaoRankingResetV1';if(localStorage.getItem(RANKING_RESET_KEY)!=='1'){localStorage.removeItem('conexaoRanking');localStorage.setItem(RANKING_RESET_KEY,'1');}
 function startGame(){const n=$('playerName').value.trim();if(!n){alert('Digite seu nome ou apelido para começar.');$('playerName').focus();return;}state={name:n,score:0,qDone:false,scrambleDone:false,wordFound:new Set(),challenge:1,memoryFound:new Set(),memoryOpen:[],memoryLocked:false,memoryMoves:0};$('home').classList.add('hidden');$('rankingSection').classList.add('hidden');$('end').classList.add('hidden');$('game').classList.remove('hidden');buildQuestions();buildScrambles();buildWordSearch();buildMemory();showChallenge(1);}
 window.startGame=startGame;
-function buildQuestions(){const box=$('questions');box.innerHTML='';qs.forEach((q,i)=>{const d=document.createElement('div');d.className='question';d.dataset.done='0';d.innerHTML='<h3>'+(i+1)+'. '+q[0]+'</h3>';const options=q[1].map((text,originalIndex)=>({text,originalIndex}));shuffle(options);options.forEach((item,j)=>{const b=document.createElement('button');b.className='option';b.textContent=String.fromCharCode(65+j)+') '+item.text;b.onclick=()=>answerQuestion(d,i,item.originalIndex,b);d.appendChild(b)});const f=document.createElement('div');f.className='feedback';f.id='fb'+i;d.appendChild(f);box.appendChild(d)});}
-function answerQuestion(card,i,j,button){if(card.dataset.done==='1')return;card.dataset.done='1';const buttons=card.querySelectorAll('.option');buttons.forEach((b,k)=>{b.disabled=true;if(k===qs[i][2])b.classList.add('correct')});const fb=$('fb'+i);if(j===qs[i][2]){state.score+=10;fb.textContent='🎉 Muito bem! +10 pontos. '+qs[i][3];fb.className='feedback ok'}else{button.classList.add('wrong');fb.textContent='💡 Quase! A resposta correta é: '+qs[i][1][qs[i][2]]+'. '+qs[i][3];fb.className='feedback no'}updateScore();}
+function buildQuestions(){const box=$('questions');box.innerHTML='';qs.forEach((q,i)=>{const d=document.createElement('div');d.className='question';d.dataset.done='0';d.innerHTML='<h3>'+(i+1)+'. '+q[0]+'</h3>';const options=q[1].map((text,originalIndex)=>({text,originalIndex}));shuffle(options);options.forEach((item,j)=>{const b=document.createElement('button');b.className='option';b.dataset.originalIndex=item.originalIndex;b.textContent=String.fromCharCode(65+j)+') '+item.text;b.onclick=()=>answerQuestion(d,i,item.originalIndex,b);d.appendChild(b)});const f=document.createElement('div');f.className='feedback';f.id='fb'+i;d.appendChild(f);box.appendChild(d)});}
+function answerQuestion(card,i,j,button){if(card.dataset.done==='1')return;card.dataset.done='1';const buttons=card.querySelectorAll('.option');buttons.forEach(b=>{b.disabled=true;if(Number(b.dataset.originalIndex)===qs[i][2])b.classList.add('correct')});const fb=$('fb'+i);if(j===qs[i][2]){state.score+=10;button.classList.add('correct');fb.textContent='🎉 Muito bem! +10 pontos. '+qs[i][3];fb.className='feedback ok'}else{button.classList.add('wrong');fb.textContent='💡 Quase! A resposta correta é: '+qs[i][1][qs[i][2]]+'. '+qs[i][3];fb.className='feedback no'}updateScore();}
 function buildScrambles(){const box=$('scrambles');box.innerHTML='';scrambles.forEach((item,i)=>{const d=document.createElement('div');d.className='scramble-box';const letters=shuffle(item[1].split(''));d.innerHTML='<p class="scramble-question">'+item[0]+'</p><div class="letters" id="letters'+i+'"></div><div class="answer" id="answer'+i+'"></div><div class="game-actions"><button class="btn btn-primary" id="checkS'+i+'">✓ CONFERIR</button><button class="btn btn-secondary" id="clearS'+i+'">↺ LIMPAR</button></div><div class="mini-message" id="msgS'+i+'"></div>';box.appendChild(d);const lb=$('letters'+i);letters.forEach((l,j)=>{const b=document.createElement('button');b.className='letter';b.textContent=l;b.dataset.i=j;b.onclick=()=>selectLetter(i,j,l,b);lb.appendChild(b)});$('checkS'+i).onclick=()=>checkScramble(i,item[1]);$('clearS'+i).onclick=()=>clearScramble(i);});}
 let chosen={};
 function selectLetter(i,j,l,b){chosen[i]=chosen[i]||[];if(chosen[i].some(x=>x.j===j))return;chosen[i].push({j:j,l:l});b.classList.add('used');const a=$('answer'+i);a.innerHTML=chosen[i].map(x=>'<span>'+x.l+'</span>').join('');}
@@ -166,11 +189,50 @@ function flipMemory(card){
 function showChallenge(n){state.challenge=n;['questionsCard','scrambleCard','wordCard','memoryCard'].forEach(id=>$(id).classList.add('hidden'));const ids=['questionsCard','scrambleCard','wordCard','memoryCard'];$(ids[n-1]).classList.remove('hidden');$('challengeLabel').textContent='Desafio '+n+' de 4';$('progressFill').style.width=(n/4*100)+'%';window.scrollTo({top:0,behavior:'smooth'});}
 window.nextChallenge=function(){if(state.challenge<4)showChallenge(state.challenge+1);else finishGame();};
 function updateScore(){$('score').textContent=state.score;}
-function finishGame(){const ranking=saveRanking(state.name,state.score);$('game').classList.add('hidden');$('end').classList.remove('hidden');$('finalText').innerHTML='<b>'+escapeHtml(state.name)+'</b>, você terminou com <b>'+state.score+' pontos</b>!<br>Parabéns por concluir os quatro desafios. 💚';renderRanking($('finalRanking'),ranking,state.name);}
+async function finishGame(){
+  $('game').classList.add('hidden');
+  $('end').classList.remove('hidden');
+  $('finalText').innerHTML='<b>'+escapeHtml(state.name)+'</b>, você terminou com <b>'+state.score+' pontos</b>!<br>Parabéns por concluir os quatro desafios. 💚';
+  $('finalRanking').innerHTML='<p>⏳ Salvando sua pontuação...</p>';
+  const ranking=await saveRanking(state.name,state.score);
+  renderRanking($('finalRanking'),ranking,state.name);
+}
 window.finishGame=finishGame;
-function saveRanking(name,score){let r=JSON.parse(localStorage.getItem('conexaoRanking')||'[]');const idx=r.findIndex(x=>x.name.toLowerCase()===name.toLowerCase());if(idx>=0){if(score>r[idx].score)r[idx].score=score}else r.push({name:name,score:score});r.sort((a,b)=>b.score-a.score);r=r.slice(0,20);localStorage.setItem('conexaoRanking',JSON.stringify(r));return r;}
+async function saveRanking(name,score){
+  if(!firebaseReady){
+    let r=JSON.parse(localStorage.getItem('conexaoRanking')||'[]');
+    const idx=r.findIndex(x=>x.name.toLowerCase()===name.toLowerCase());
+    if(idx>=0){if(score>r[idx].score)r[idx].score=score}else r.push({name:name,score:score});
+    r.sort((a,b)=>b.score-a.score);r=r.slice(0,20);localStorage.setItem('conexaoRanking',JSON.stringify(r));return r;
+  }
+  try {
+    await rankingRef.push({name:name,score:Number(score),createdAt:Date.now()});
+    const snap=await rankingRef.once('value');
+    const all=[];
+    snap.forEach(child=>{const x=child.val();if(x&&typeof x.name==='string'&&typeof x.score==='number')all.push({name:x.name,score:x.score,createdAt:x.createdAt||0});});
+    all.sort((a,b)=>b.score-a.score||a.createdAt-b.createdAt);
+    const bestByName={};
+    all.forEach(x=>{const key=x.name.trim().toLowerCase();if(!bestByName[key]||x.score>bestByName[key].score)bestByName[key]=x;});
+    return Object.values(bestByName).sort((a,b)=>b.score-a.score||a.name.localeCompare(b.name)).slice(0,20);
+  } catch(e){
+    console.error(e);
+    return JSON.parse(localStorage.getItem('conexaoRanking')||'[]');
+  }
+}
 function renderRanking(box,r,current){if(!r.length){box.innerHTML='<p>Ainda não há jogadores no ranking.</p>';return}const pos=r.findIndex(x=>x.name.toLowerCase()===current.toLowerCase())+1;let html='<div class="podium">🏆 '+(pos?'Você está em '+pos+'º lugar!':'')+'</div><table class="ranking"><thead><tr><th>#</th><th>Jogador</th><th>Pontos</th></tr></thead><tbody>';r.forEach((x,i)=>{html+='<tr class="'+(x.name.toLowerCase()===current.toLowerCase()?'me':'')+'"><td>'+(i+1)+'</td><td>'+escapeHtml(x.name)+'</td><td>⭐ '+x.score+'</td></tr>'});box.innerHTML=html+'</tbody></table>';}
-function showRanking(){const r=JSON.parse(localStorage.getItem('conexaoRanking')||'[]');$('home').classList.add('hidden');$('game').classList.add('hidden');$('end').classList.add('hidden');$('rankingSection').classList.remove('hidden');renderRanking($('rankingContent'),r,'');window.scrollTo({top:0,behavior:'smooth'});}
+async function loadRanking(){
+  if(!firebaseReady)return JSON.parse(localStorage.getItem('conexaoRanking')||'[]');
+  try {
+    const snap=await rankingRef.once('value');
+    const all=[];
+    snap.forEach(child=>{const x=child.val();if(x&&typeof x.name==='string'&&typeof x.score==='number')all.push({name:x.name,score:x.score,createdAt:x.createdAt||0});});
+    const bestByName={};
+    all.sort((a,b)=>b.score-a.score||a.createdAt-b.createdAt);
+    all.forEach(x=>{const key=x.name.trim().toLowerCase();if(!bestByName[key]||x.score>bestByName[key].score)bestByName[key]=x;});
+    return Object.values(bestByName).sort((a,b)=>b.score-a.score||a.name.localeCompare(b.name)).slice(0,20);
+  } catch(e){console.error(e);return [];}
+}
+async function showRanking(){$('home').classList.add('hidden');$('game').classList.add('hidden');$('end').classList.add('hidden');$('rankingSection').classList.remove('hidden');$('rankingContent').innerHTML='<p>⏳ Carregando ranking...</p>';const r=await loadRanking();renderRanking($('rankingContent'),r,'');window.scrollTo({top:0,behavior:'smooth'});}
 window.showRanking=showRanking;
 function restart(){$('end').classList.add('hidden');$('game').classList.remove('hidden');startGame();}
 window.restart=restart;
