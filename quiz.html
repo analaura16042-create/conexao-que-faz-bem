@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conexão que Faz Bem</title>
+<style>
+:root{--green:#176b52;--green2:#22a06b;--light:#f2faf6;--text:#17352b;--muted:#5d746b;--card:#fff;--border:#d8e8e1;--danger:#c94b4b;--gold:#e4ad2d;font-size:16px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#eaf7f1,#f7fbf9);color:var(--text);font-size:1rem}.app{min-height:100vh}.topbar{background:var(--green);color:#fff;padding:22px 16px 26px;text-align:center}.topbar h1{margin:0;font-size:clamp(28px,6vw,44px)}.topbar p{margin:8px 0 0;font-size:clamp(16px,3vw,21px)}.access{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--border);padding:10px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.access button,.btn{border:0;border-radius:14px;padding:13px 18px;font-size:1rem;font-weight:700;cursor:pointer}.access button{background:#103f31;color:#fff}.access button:focus,.btn:focus,.letter:focus,.option:focus,.cell:focus{outline:4px solid #f0bb2f;outline-offset:2px}.container{width:min(100% - 24px,1000px);margin:22px auto 60px}.card{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:22px;margin:18px 0;box-shadow:0 8px 25px #123b2912}.welcome{text-align:center}.welcome h2{font-size:clamp(25px,5vw,36px);margin:5px 0 8px}.welcome .emoji{font-size:48px}.name-input{width:min(100%,520px);padding:15px 16px;border:2px solid #bdd7cb;border-radius:14px;font-size:1.1rem;margin:12px auto;display:block}.btn-primary{background:var(--green2);color:#fff}.btn-secondary{background:#e7f4ee;color:var(--green);border:2px solid #b8ddcc}.btn-danger{background:#fff0f0;color:#a63838}.hidden{display:none!important}.scorebar{display:flex;gap:12px;align-items:center;justify-content:space-between;background:#123f32;color:#fff;border-radius:18px;padding:14px 18px;margin-bottom:18px;position:sticky;top:64px;z-index:10}.score{font-size:1.15rem;font-weight:800}.progress{height:12px;background:#d9ebe3;border-radius:99px;overflow:hidden;margin:10px 0 20px}.progress>div{height:100%;background:var(--green2);width:0;transition:.3s}.question{padding:18px;border:1px solid var(--border);border-radius:18px;margin:15px 0;background:#fbfefd}.question h3{margin-top:0;font-size:1.2rem}.option{display:block;width:100%;text-align:left;border:2px solid #d3e6dd;background:#f5faf7;color:var(--text);border-radius:14px;padding:14px;margin:9px 0;font-size:1rem;cursor:pointer}.option:hover{border-color:var(--green2)}.option.correct{background:#dcf7e9;border-color:#2b9c63}.option.wrong{background:#ffe4e4;border-color:#c94b4b}.feedback{font-weight:700;margin-top:10px}.feedback.ok{color:#197447}.feedback.no{color:#a63838}.scramble-box{border:2px dashed #bcdacd;border-radius:18px;padding:18px;margin:18px 0}.scramble-question{font-size:1.12rem;font-weight:700;margin-top:0}.letters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:15px 0}.letter{min-width:52px;height:52px;border-radius:12px;border:2px solid #b6d9c9;background:#edf8f3;color:#143d30;font-size:1.35rem;font-weight:800;cursor:pointer}.letter.used{opacity:.35;transform:scale(.95)}.answer{min-height:58px;border:2px solid #a9cdbc;border-radius:14px;background:#fff;display:flex;gap:7px;align-items:center;justify-content:center;padding:8px;flex-wrap:wrap;font-size:1.4rem;font-weight:800;letter-spacing:2px}.answer span{min-width:36px;text-align:center;border-bottom:3px solid #a9cdbc}.game-actions{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:12px}.mini-message{text-align:center;font-weight:700;min-height:25px;margin:8px}.wordsearch{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;width:min(100%,600px);margin:18px auto}.cell{aspect-ratio:1;border:0;border-radius:7px;background:#e8f5ef;color:#174637;font-weight:800;font-size:clamp(12px,2.4vw,20px);cursor:pointer}.cell.selected{background:#bfe9d4}.cell.found{background:#49b77c;color:#fff}.word-list{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}.word-tag{padding:8px 12px;border-radius:99px;background:#edf5f1;font-weight:700}.word-tag.found{background:#49b77c;color:#fff;text-decoration:line-through}.ranking{width:100%;border-collapse:collapse}.ranking th,.ranking td{padding:12px;border-bottom:1px solid var(--border);text-align:left}.ranking tr.me{background:#e5f6ed;font-weight:800}.podium{text-align:center;font-size:1.2rem;margin-bottom:14px}.end{text-align:center}.notice{padding:12px;border-radius:14px;background:#edf8f3;margin:12px 0}.small{color:var(--muted);font-size:.95rem}@media(max-width:700px){.container{width:min(100% - 14px,1000px)}.card{padding:16px;border-radius:18px}scorebar{top:62px}.wordsearch{gap:2px}.cell{border-radius:5px}.letter{min-width:45px;height:48px}.topbar{padding-top:18px}}
+body.large{font-size:1.18rem}body.large .option,body.large .btn,body.large .access button{font-size:1.08rem}body.xlarge{font-size:1.35rem}body.xlarge .option,body.xlarge .btn,body.xlarge .access button{font-size:1.15rem}body.xlarge .letter{min-width:58px;height:58px}
+
+.wordsearch-help{max-width:720px;margin:0 auto 10px;text-align:center;font-weight:700}.wordsearch{grid-template-columns:repeat(8,1fr);width:min(100%,520px);gap:5px}.cell{border:2px solid #cfe5db;border-radius:9px;background:#f4faf7;min-width:0;font-size:clamp(15px,3.8vw,24px)}.cell.first{background:#ffe29a;border-color:#e2a82b;transform:scale(1.03)}.cell.selected{background:#bfe9d4;border-color:#2f9b6b}.cell.found{background:#49b77c;color:#fff;border-color:#2b915d}.errors-note{max-width:800px;margin:0 auto 14px;text-align:center}
+
+
+
+
+.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:620px;margin:20px auto}.memory-card{aspect-ratio:1;border:0;border-radius:18px;background:#176b52;color:#fff;cursor:pointer;position:relative;transform-style:preserve-3d;transition:transform .25s,background .2s;box-shadow:0 5px 14px #123b2920;font-size:2.2rem;font-weight:800}.memory-card .front,.memory-card .back{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;border-radius:18px;backface-visibility:hidden}.memory-card .front{background:linear-gradient(135deg,#176b52,#22a06b);font-size:2rem}.memory-card .back{background:#fff;color:#17352b;border:3px solid #b8ddcc;transform:rotateY(180deg);flex-direction:column;gap:4px}.memory-card.flipped{transform:rotateY(180deg)}.memory-card.matched .back{background:#dcf7e9;border-color:#49b77c}.memory-label{font-size:.72rem;font-weight:800;letter-spacing:0}.memory-info{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:12px 0}.memory-stat{padding:10px 14px;border-radius:14px;background:#edf8f3;font-weight:800}.memory-message{text-align:center;min-height:28px;font-weight:800;margin:10px}.memory-reset{margin-top:4px}@media(max-width:560px){.memory-grid{grid-template-columns:repeat(4,1fr);gap:8px}.memory-card{border-radius:13px;font-size:1.7rem}.memory-card .front,.memory-card .back{border-radius:13px}.memory-card .front{font-size:1.5rem}.memory-label{font-size:.55rem}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar"><h1>📱💚 CONEXÃO QUE FAZ BEM</h1><p>Um desafio sobre saúde do idoso e uso seguro do celular</p></header>
+<nav class="access" aria-label="Acessibilidade"><button onclick="font(1)">A+ Aumentar letras</button><button onclick="font(-1)">A− Diminuir letras</button><button onclick="font(0)">↺ Tamanho normal</button></nav>
+<main class="container">
+<section id="home" class="card welcome">
+<div class="emoji">🎮💚</div><h2>Vamos jogar?</h2><p>Aprenda dicas de saúde e segurança digital de um jeito divertido.</p>
+<input id="playerName" class="name-input" maxlength="24" placeholder="Digite seu nome ou apelido" aria-label="Nome ou apelido">
+<div class="game-actions"><button class="btn btn-primary" onclick="startGame()">▶ COMEÇAR O JOGO</button><button class="btn btn-secondary" onclick="showRanking()">🏆 VER RANKING</button></div>
+<p class="small">📱 O QR Code poderá apontar para este jogo quando ele estiver publicado em um endereço público.</p>
+</section>
+<section id="game" class="hidden">
+<div class="scorebar"><span id="challengeLabel">Desafio 1 de 4</span><span class="score">⭐ <span id="score">0</span> pontos</span></div>
+<div class="progress"><div id="progressFill"></div></div>
+<section class="card" id="questionsCard"><h2>🧠 Desafio 1 — Perguntas</h2><div id="questions"></div><div class="game-actions"><button class="btn btn-primary" onclick="nextChallenge()">PRÓXIMO DESAFIO →</button></div></section>
+<section class="card hidden" id="scrambleCard"><h2>🔤 Desafio 2 — Palavra embaralhada</h2><p>Leia a pergunta e clique nas letras para montar a resposta. Não precisa digitar.</p><div id="scrambles"></div><div class="game-actions"><button class="btn btn-primary" onclick="nextChallenge()">PRÓXIMO DESAFIO →</button></div></section>
+<section class="card hidden" id="wordCard"><h2>🔎 Desafio 3 — Caça-palavras</h2><p>Encontre uma palavra por vez: clique na <b>primeira letra</b> e depois na <b>última letra</b>. A palavra precisa estar em linha reta, na horizontal, vertical ou diagonal.</p><div id="wordTags" class="word-list"></div><div id="wordGrid" class="wordsearch" aria-label="Caça-palavras"></div><p id="wordStatus" class="notice">Encontradas: 0/6</p><div class="game-actions"><button class="btn btn-primary" onclick="nextChallenge()">PRÓXIMO DESAFIO →</button></div></section>
+<section class="card hidden" id="memoryCard"><h2>🧠 Desafio 4 — Jogo da Memória</h2><p>Encontre os pares relacionados à saúde e ao uso seguro do celular. Clique em duas cartas para virar.</p><div class="memory-info"><span class="memory-stat">🃏 Pares: <span id="memoryPairs">0/8</span></span><span class="memory-stat">🔄 Tentativas: <span id="memoryMoves">0</span></span></div><div id="memoryGrid" class="memory-grid" aria-label="Jogo da memória"></div><div id="memoryMessage" class="memory-message"></div><div class="game-actions"><button class="btn btn-secondary memory-reset" onclick="buildMemory()">↺ RECOMEÇAR MEMÓRIA</button><button class="btn btn-primary" onclick="nextChallenge()">FINALIZAR JOGO →</button></div></section>
+
+</section>
+<section id="end" class="card end hidden"><div class="emoji">🏆</div><h2>Desafio concluído!</h2><p id="finalText"></p><div id="finalRanking"></div><div class="game-actions"><button class="btn btn-primary" onclick="restart()">🎮 JOGAR NOVAMENTE</button><button class="btn btn-secondary" onclick="goHome()">🏠 VOLTAR AO INÍCIO</button></div></section>
+<section id="rankingSection" class="card hidden"><h2>🏆 Ranking</h2><div id="rankingContent"></div><div class="game-actions"><button class="btn btn-secondary" onclick="goHome()">🏠 INÍCIO</button></div></section>
+</main></div>
+<script>
+(function(){
+'use strict';
+const qs=[
+['💧 O que devemos beber regularmente para evitar a desidratação?',['Água','Refrigerante','Somente café','Nenhuma bebida'],0,'Beber água ajuda a manter o corpo hidratado.'],
+['🥗 Qual atitude ajuda a manter uma alimentação saudável?',['Variar os alimentos e priorizar opções nutritivas','Pular refeições','Comer somente doces','Evitar todas as frutas'],0,'Uma alimentação variada ajuda a fornecer nutrientes importantes.'],
+['🚶 O que pode ajudar na saúde física do idoso, respeitando suas condições?',['Atividade física adequada','Ficar o dia todo sentado','Evitar qualquer movimento','Dormir durante o dia inteiro'],0,'Movimento adequado pode ajudar na força, equilíbrio e disposição.'],
+['🏠 Qual atitude ajuda a prevenir quedas?',['Manter o ambiente iluminado e sem obstáculos','Deixar fios espalhados','Usar tapetes soltos','Deixar objetos no caminho'],0,'Um ambiente organizado e bem iluminado ajuda a reduzir riscos de quedas.'],
+['😴 Qual hábito favorece um bom descanso?',['Manter uma rotina de sono','Usar o celular a noite inteira','Dormir em horários sempre diferentes','Tomar qualquer remédio por conta própria'],0,'Uma rotina regular de sono pode favorecer o descanso.'],
+['🔐 Qual é uma atitude segura ao usar o celular?',['Não compartilhar senhas e códigos pessoais','Enviar senha para desconhecidos','Clicar em qualquer link','Passar código de confirmação para outra pessoa'],0,'Senhas e códigos pessoais devem ser mantidos em segredo.'],
+['⚠️ Uma mensagem pede dinheiro com urgência. O que fazer?',['Confirmar a identidade por outro meio antes de agir','Enviar imediatamente','Passar seus dados bancários','Clicar em todos os links'],0,'Golpes podem usar urgência para pressionar a vítima. Confirme por outro canal.'],
+['📞 O que fazer com uma ligação desconhecida que pede dados pessoais?',['Não informar os dados e verificar a origem','Passar CPF e senha','Informar o código recebido por SMS','Seguir todas as instruções'],0,'Não forneça dados pessoais ou códigos para desconhecidos.'],
+['💚 O que também faz parte da promoção da saúde do idoso?',['Convivência social e cuidado emocional','Isolamento constante','Evitar conversar com pessoas','Não procurar ajuda quando necessário'],0,'Convivência e bem-estar emocional também são importantes.'],
+['🔗 O que fazer antes de abrir um link suspeito?',['Verificar a origem e não clicar se houver dúvida','Clicar rapidamente','Enviar para todos os contatos','Informar sua senha no site'],0,'Links suspeitos podem levar a golpes ou páginas falsas.']
+];
+const scrambles=[
+['💧 O que devemos beber regularmente para evitar a desidratação?','AGUA'],
+['🔐 O que protege nossas contas e não deve ser compartilhado?','SENHA'],
+['😴 Qual hábito é importante para descansar e recuperar as energias?','SONO'],
+['📱 Qual aparelho usamos para chamadas, mensagens e internet?','CELULAR'],
+['🚶 Qual atividade simples pode ajudar a manter o corpo ativo?','CAMINHADA'],
+['🏃 O que ajuda a fortalecer o corpo e melhorar a disposição?','EXERCICIO']
+];
+const words=['SAUDE','SONO','AGUA','SENHA','CELULAR','FAMILIA'];
+const memoryPairs=[['💧','ÁGUA'],['🥗','ALIMENTAÇÃO'],['🚶','CAMINHADA'],['😴','SONO'],['📱','CELULAR'],['🔐','SENHA'],['👨‍👩‍👧','FAMÍLIA'],['❤️','SAÚDE']];
+let state={name:'',score:0,qDone:false,scrambleDone:false,wordFound:new Set(),challenge:1,memoryFound:new Set(),memoryOpen:[],memoryLocked:false,memoryMoves:0};
+function $(id){return document.getElementById(id)}
+window.font=function(n){document.body.classList.remove('large','xlarge');if(n===1)document.body.classList.add('large');if(n===-1)document.body.classList.add('large');if(n===0){};if(n===-1){document.body.classList.remove('large');}localStorage.setItem('fontSize',n)};
+const savedFont=localStorage.getItem('fontSize');if(savedFont==='1')document.body.classList.add('large');const RANKING_RESET_KEY='conexaoRankingResetV1';if(localStorage.getItem(RANKING_RESET_KEY)!=='1'){localStorage.removeItem('conexaoRanking');localStorage.setItem(RANKING_RESET_KEY,'1');}
+function startGame(){const n=$('playerName').value.trim();if(!n){alert('Digite seu nome ou apelido para começar.');$('playerName').focus();return;}state={name:n,score:0,qDone:false,scrambleDone:false,wordFound:new Set(),challenge:1,memoryFound:new Set(),memoryOpen:[],memoryLocked:false,memoryMoves:0};$('home').classList.add('hidden');$('rankingSection').classList.add('hidden');$('end').classList.add('hidden');$('game').classList.remove('hidden');buildQuestions();buildScrambles();buildWordSearch();buildMemory();showChallenge(1);}
+window.startGame=startGame;
+function buildQuestions(){const box=$('questions');box.innerHTML='';qs.forEach((q,i)=>{const d=document.createElement('div');d.className='question';d.dataset.done='0';d.innerHTML='<h3>'+(i+1)+'. '+q[0]+'</h3>';const options=q[1].map((text,originalIndex)=>({text,originalIndex}));shuffle(options);options.forEach((item,j)=>{const b=document.createElement('button');b.className='option';b.textContent=String.fromCharCode(65+j)+') '+item.text;b.onclick=()=>answerQuestion(d,i,item.originalIndex,b);d.appendChild(b)});const f=document.createElement('div');f.className='feedback';f.id='fb'+i;d.appendChild(f);box.appendChild(d)});}
+function answerQuestion(card,i,j,button){if(card.dataset.done==='1')return;card.dataset.done='1';const buttons=card.querySelectorAll('.option');buttons.forEach((b,k)=>{b.disabled=true;if(k===qs[i][2])b.classList.add('correct')});const fb=$('fb'+i);if(j===qs[i][2]){state.score+=10;fb.textContent='🎉 Muito bem! +10 pontos. '+qs[i][3];fb.className='feedback ok'}else{button.classList.add('wrong');fb.textContent='💡 Quase! A resposta correta é: '+qs[i][1][qs[i][2]]+'. '+qs[i][3];fb.className='feedback no'}updateScore();}
+function buildScrambles(){const box=$('scrambles');box.innerHTML='';scrambles.forEach((item,i)=>{const d=document.createElement('div');d.className='scramble-box';const letters=shuffle(item[1].split(''));d.innerHTML='<p class="scramble-question">'+item[0]+'</p><div class="letters" id="letters'+i+'"></div><div class="answer" id="answer'+i+'"></div><div class="game-actions"><button class="btn btn-primary" id="checkS'+i+'">✓ CONFERIR</button><button class="btn btn-secondary" id="clearS'+i+'">↺ LIMPAR</button></div><div class="mini-message" id="msgS'+i+'"></div>';box.appendChild(d);const lb=$('letters'+i);letters.forEach((l,j)=>{const b=document.createElement('button');b.className='letter';b.textContent=l;b.dataset.i=j;b.onclick=()=>selectLetter(i,j,l,b);lb.appendChild(b)});$('checkS'+i).onclick=()=>checkScramble(i,item[1]);$('clearS'+i).onclick=()=>clearScramble(i);});}
+let chosen={};
+function selectLetter(i,j,l,b){chosen[i]=chosen[i]||[];if(chosen[i].some(x=>x.j===j))return;chosen[i].push({j:j,l:l});b.classList.add('used');const a=$('answer'+i);a.innerHTML=chosen[i].map(x=>'<span>'+x.l+'</span>').join('');}
+function clearScramble(i){chosen[i]=[];$('answer'+i).innerHTML='';$('msgS'+i).textContent='';document.querySelectorAll('#letters'+i+' .letter').forEach(b=>b.classList.remove('used'));}
+function checkScramble(i,answer){const value=(chosen[i]||[]).map(x=>x.l).join('');const m=$('msgS'+i);if(value===answer){m.textContent='🎉 Correto! +10 pontos.';m.style.color='#197447';if(!m.dataset.scored){state.score+=10;m.dataset.scored='1';state.scrambleDone=true;updateScore();}}else{m.textContent='💡 Quase! Clique em LIMPAR e tente novamente.';m.style.color='#a63838';}}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a;}
+function buildWordSearch(){
+  const grid=$('wordGrid'); grid.innerHTML=''; path=[];
+  const size=8;
+  const cells=Array(size*size).fill('');
+  const placements={
+    SAUDE:[[0,0],[0,1],[0,2],[0,3],[0,4]],
+    AGUA:[[2,0],[2,1],[2,2],[2,3]],
+    SONO:[[0,6],[1,6],[2,6],[3,6]],
+    SENHA:[[4,0],[4,1],[4,2],[4,3],[4,4]],
+    CELULAR:[[6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[6,6]],
+    FAMILIA:[[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[7,7]]
+  };
+  Object.entries(placements).forEach(([word,positions])=>positions.forEach((pos,i)=>cells[pos[0]*size+pos[1]]=word[i]));
+  for(let i=0;i<cells.length;i++){
+    if(!cells[i]) cells[i]=String.fromCharCode(65+Math.floor(Math.random()*26));
+    const b=document.createElement('button'); b.className='cell'; b.textContent=cells[i];
+    b.dataset.r=Math.floor(i/size); b.dataset.c=i%size; b.dataset.index=i;
+    b.onclick=()=>selectWordEndpoint(b); grid.appendChild(b);
+  }
+  $('wordTags').innerHTML=words.map(w=>'<span class="word-tag" id="tag-'+w+'">'+w+'</span>').join('');
+  $('wordStatus').textContent='Encontradas: 0/'+words.length+' — clique na primeira e depois na última letra.';
+}
+let path=[];
+function clearWordSelection(){path=[];document.querySelectorAll('.cell.first,.cell.selected').forEach(x=>x.classList.remove('first','selected'));}
+function selectWordEndpoint(b){
+  if(b.classList.contains('found')) return;
+  if(path.length===0){path=[b];b.classList.add('first');$('wordStatus').textContent='Agora clique na última letra da palavra.';return;}
+  if(path.length===1){
+    const first=path[0];
+    if(first===b){clearWordSelection();$('wordStatus').textContent='Seleção cancelada. Clique na primeira letra.';return;}
+    const r1=+first.dataset.r,c1=+first.dataset.c,r2=+b.dataset.r,c2=+b.dataset.c;
+    const dr=r2-r1,dc=c2-c1;
+    const straight=(dr===0||dc===0||Math.abs(dr)===Math.abs(dc));
+    if(!straight){$('wordStatus').textContent='💡 A palavra precisa estar em linha reta. Escolha outra última letra.';return;}
+    const steps=Math.max(Math.abs(dr),Math.abs(dc))+1;
+    let value='';const selected=[];
+    const sr=dr===0?0:dr/Math.abs(dr),sc=dc===0?0:dc/Math.abs(dc);
+    for(let k=0;k<steps;k++){const r=r1+sr*k,c=c1+sc*k;const cell=document.querySelector('.cell[data-r="'+r+'"][data-c="'+c+'"]');if(!cell)break;selected.push(cell);value+=cell.textContent;}
+    const rev=value.split('').reverse().join('');
+    const foundWord=words.find(w=>!state.wordFound.has(w)&&(w===value||w===rev));
+    if(foundWord){
+      state.wordFound.add(foundWord);selected.forEach(x=>{x.classList.remove('first','selected');x.classList.add('found')});
+      $('tag-'+foundWord).classList.add('found');state.score+=5;updateScore();path=[];
+      $('wordStatus').textContent='🎉 '+foundWord+' encontrada! +5 pontos. Encontradas: '+state.wordFound.size+'/'+words.length;
+      if(state.wordFound.size===words.length)$('wordStatus').textContent='🏆 Todas as palavras encontradas! +5 pontos por palavra.';
+    }else{
+      first.classList.remove('first');b.classList.add('selected');
+      $('wordStatus').textContent='❌ Não é uma das palavras. Clique novamente na primeira letra.';
+      setTimeout(clearWordSelection,700);
+    }
+  }
+}
+function buildMemory(){
+  const grid=$('memoryGrid');
+  if(!grid)return;
+  grid.innerHTML='';
+  state.memoryFound=new Set();state.memoryOpen=[];state.memoryLocked=false;state.memoryMoves=0;
+  $('memoryPairs').textContent='0/8';$('memoryMoves').textContent='0';$('memoryMessage').textContent='';
+  let cards=[];
+  memoryPairs.forEach((pair,i)=>{cards.push({id:i,icon:pair[0],label:pair[1]});cards.push({id:i,icon:pair[0],label:pair[1]});});
+  cards=shuffle(cards);
+  cards.forEach((card,index)=>{
+    const b=document.createElement('button');b.className='memory-card';b.type='button';b.dataset.id=card.id;b.dataset.index=index;
+    b.innerHTML='<span class="front">?</span><span class="back"><span>'+card.icon+'</span><span class="memory-label">'+card.label+'</span></span>';
+    b.onclick=()=>flipMemory(b);grid.appendChild(b);
+  });
+}
+function flipMemory(card){
+  if(state.memoryLocked||card.classList.contains('flipped')||card.classList.contains('matched'))return;
+  card.classList.add('flipped');state.memoryOpen.push(card);
+  if(state.memoryOpen.length<2)return;
+  state.memoryMoves++;$('memoryMoves').textContent=state.memoryMoves;
+  const [a,b]=state.memoryOpen;
+  if(a.dataset.id===b.dataset.id){
+    a.classList.add('matched');b.classList.add('matched');
+    state.memoryFound.add(a.dataset.id);state.score+=10;updateScore();
+    $('memoryPairs').textContent=state.memoryFound.size+'/8';$('memoryMessage').textContent='🎉 Par encontrado! +10 pontos.';
+    state.memoryOpen=[];
+    if(state.memoryFound.size===8){$('memoryMessage').textContent='🏆 Parabéns! Você encontrou todos os pares!';}
+  }else{
+    state.memoryLocked=true;$('memoryMessage').textContent='💡 Não combinou. Tente novamente!';
+    setTimeout(()=>{a.classList.remove('flipped');b.classList.remove('flipped');state.memoryOpen=[];state.memoryLocked=false;},850);
+  }
+}
+function showChallenge(n){state.challenge=n;['questionsCard','scrambleCard','wordCard','memoryCard'].forEach(id=>$(id).classList.add('hidden'));const ids=['questionsCard','scrambleCard','wordCard','memoryCard'];$(ids[n-1]).classList.remove('hidden');$('challengeLabel').textContent='Desafio '+n+' de 4';$('progressFill').style.width=(n/4*100)+'%';window.scrollTo({top:0,behavior:'smooth'});}
+window.nextChallenge=function(){if(state.challenge<4)showChallenge(state.challenge+1);else finishGame();};
+function updateScore(){$('score').textContent=state.score;}
+function finishGame(){const ranking=saveRanking(state.name,state.score);$('game').classList.add('hidden');$('end').classList.remove('hidden');$('finalText').innerHTML='<b>'+escapeHtml(state.name)+'</b>, você terminou com <b>'+state.score+' pontos</b>!<br>Parabéns por concluir os quatro desafios. 💚';renderRanking($('finalRanking'),ranking,state.name);}
+window.finishGame=finishGame;
+function saveRanking(name,score){let r=JSON.parse(localStorage.getItem('conexaoRanking')||'[]');const idx=r.findIndex(x=>x.name.toLowerCase()===name.toLowerCase());if(idx>=0){if(score>r[idx].score)r[idx].score=score}else r.push({name:name,score:score});r.sort((a,b)=>b.score-a.score);r=r.slice(0,20);localStorage.setItem('conexaoRanking',JSON.stringify(r));return r;}
+function renderRanking(box,r,current){if(!r.length){box.innerHTML='<p>Ainda não há jogadores no ranking.</p>';return}const pos=r.findIndex(x=>x.name.toLowerCase()===current.toLowerCase())+1;let html='<div class="podium">🏆 '+(pos?'Você está em '+pos+'º lugar!':'')+'</div><table class="ranking"><thead><tr><th>#</th><th>Jogador</th><th>Pontos</th></tr></thead><tbody>';r.forEach((x,i)=>{html+='<tr class="'+(x.name.toLowerCase()===current.toLowerCase()?'me':'')+'"><td>'+(i+1)+'</td><td>'+escapeHtml(x.name)+'</td><td>⭐ '+x.score+'</td></tr>'});box.innerHTML=html+'</tbody></table>';}
+function showRanking(){const r=JSON.parse(localStorage.getItem('conexaoRanking')||'[]');$('home').classList.add('hidden');$('game').classList.add('hidden');$('end').classList.add('hidden');$('rankingSection').classList.remove('hidden');renderRanking($('rankingContent'),r,'');window.scrollTo({top:0,behavior:'smooth'});}
+window.showRanking=showRanking;
+function restart(){$('end').classList.add('hidden');$('game').classList.remove('hidden');startGame();}
+window.restart=restart;
+function goHome(){$('rankingSection').classList.add('hidden');$('end').classList.add('hidden');$('game').classList.add('hidden');$('home').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});}
+window.goHome=goHome;
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+})();
+</script>
+</body></html>
